@@ -1,49 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Weapons.Entities
 {
     internal class Weapon
     {
-        public int Id;
         private static int autoInc = 1;
 
-        public string Name;
-        public CaliberType Caliber;
-        public bool IsMagazineIn;
-        public Magazine ActiveMagazine;
-
-        public Weapon(string NewName, CaliberType Type, bool isMagazineIn)
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public CaliberType Caliber { get; private set; }
+        public Magazine ActiveMagazine { get; private set; }
+        public bool IsMagazineIn
         {
-            this.Id = autoInc++;
+            get { return ActiveMagazine != null; }
+        }
 
-            this.Name = NewName;
-            this.Caliber = Type;
-            this.IsMagazineIn = isMagazineIn;
+        public Weapon(string newName, CaliberType type)
+        {
+            Id = autoInc++;
+            Name = newName;
+            Caliber = type;
         }
 
         public void ChangeMagazine(Magazine newMagazine)
         {
-            if (newMagazine != null && newMagazine.Caliber == this.Caliber)
-            {
-                this.ActiveMagazine = newMagazine;
-                this.IsMagazineIn = true;
-            }
-            else throw new Exception("Magazine can`t be null");
+            if (newMagazine == null)
+                throw new Exception("Magazine can't be null");
+            if (newMagazine.Caliber != Caliber)
+                throw new Exception("Wrong caliber");
+
+            ActiveMagazine = newMagazine;
         }
 
         public void Shoot()
         {
-            if (!IsMagazineIn || ActiveMagazine == null)
-                throw new Exception("Magazine is null");
+            if (ActiveMagazine == null)
+                throw new Exception("No magazine inserted");
 
-            if (ActiveMagazine.bullets <= 0)
-                throw new Exception("Magazine is empty");
-
-            ActiveMagazine.bullets--;
+            ActiveMagazine.RemoveBullet();
         }
     }
 }

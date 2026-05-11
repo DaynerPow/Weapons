@@ -1,34 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Weapons.Entities
 {
     internal class Player
     {
-        public string Name;
-        public Weapon ActiveWeapon;
-        public List<Weapon> Weapons;
-        public List<Magazine> Magazines;
+        public string Name { get; private set; }
+        public Weapon ActiveWeapon { get; private set; }
+        public List<Weapon> Weapons { get; private set; }
+        public List<Magazine> Magazines { get; private set; }
 
         private int currentWeaponIndex = 0;
 
-        public Player(string NewName, List<Weapon> NewWeapons, List<Magazine> NewMagazines)
+        public Player(string newName, List<Weapon> newWeapons, List<Magazine> newMagazines)
         {
-            this.Name = NewName;
-            this.Weapons = NewWeapons;
-            this.Magazines = NewMagazines;
+            Name = newName;
+            Weapons = newWeapons;
+            Magazines = newMagazines;
             if (Weapons.Count > 0) ActiveWeapon = Weapons[0];
         }
 
-        public void AddWeapon(Weapon NewWeapon)
+        public void AddWeapon(Weapon newWeapon)
         {
-            if (NewWeapon == null)
-                throw new Exception("Weapon can`t be null");
-            Weapons.Add(NewWeapon);
+            if (newWeapon == null)
+                throw new Exception("Weapon can't be null");
+            Weapons.Add(newWeapon);
         }
 
         public void SelectNextWeapon()

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Weapons.Entities
+namespace Weapons.Types
 {
     public enum CaliberType
     {

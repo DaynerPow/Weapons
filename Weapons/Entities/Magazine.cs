@@ -1,19 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Weapons.Entities
 {
     internal class Magazine
     {
-        public int Id;
-        public static int autoInc = 1;
+        private static int autoInc = 1;
 
-        public CaliberType Caliber;
-        public int bullets;
+        public int Id { get; private set; }
+        public CaliberType Caliber { get; private set; }
+        public int Bullets { get; private set; }
+        public int MaxBullets { get; }
 
+        public Magazine(CaliberType newCaliber, int newMaxBullets)
+        {
+            Id = autoInc++;
+            Caliber = newCaliber;
+            MaxBullets = newMaxBullets;
+            Bullets = newMaxBullets;
+        }
 
+        public void RemoveBullet()
+        {
+            if (Bullets <= 0)
+                throw new Exception("Magazine is empty");
+            Bullets--;
+        }
     }
 }
