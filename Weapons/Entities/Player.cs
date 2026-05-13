@@ -15,9 +15,9 @@ namespace Weapons.Entities
 
         public Player(string newName, List<Weapon> newWeapons, List<Magazine> newMagazines)
         {
-            Name = newName;
-            Weapons = newWeapons;
-            Magazines = newMagazines;
+            this.Name = newName;
+            this.Weapons = newWeapons;
+            this.Magazines = newMagazines;
             if (Weapons.Count > 0) ActiveWeapon = Weapons[0];
         }
 
